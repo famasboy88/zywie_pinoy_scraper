@@ -1,1 +1,2 @@
 pyrebase==3.0.10
+scrapy==1.4.0

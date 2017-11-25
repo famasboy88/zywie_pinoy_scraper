@@ -11,14 +11,14 @@ class PinoyRecipeSpider(scrapy.Spider):
         links = response.css('li.ei-item > h3 > a::attr(href)').extract()
         for link in links:
             link = response.urljoin(link)
-            yield scrapy.Request(link,callback=self.subcat)
+            yield scrapy.Request(link, callback=self.subcat)
         pass
 
     def subcat(self, response):
         links = response.css('li.ei-item > h4.ei-item-title > a::attr(href)').extract()
         for link in links:
             link = response.urljoin(link)
-            yield scrapy.Request(link,callback=self.getDetails)
+            yield scrapy.Request(link, callback=self.getDetails)
         pass
 
     def getDetails(self, response):
@@ -26,8 +26,8 @@ class PinoyRecipeSpider(scrapy.Spider):
         list_recipe = response.css('li.ingredient::text').extract()
         description = response.css('div.entry-content > p::text').extract_first()
         pinoy = {
-            'name_food':name_food,
-            'list_recipe':list_recipe,
-            'description':description
+            'name_food': name_food,
+            'list_recipe': list_recipe,
+            'description': description
         }
         yield pinoy
